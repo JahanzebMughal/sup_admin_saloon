@@ -53,6 +53,53 @@ const TextStyle saloontopheaderrvalue = TextStyle(
   fontSize: 16,
   color: cdashboardheadingcolor,
 );
+
+const TextStyle style700x15 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 15,
+    color: black);
+
+const TextStyle stylewhite700x12 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 12,
+    color: white);
+
+const TextStyle style400x16 = TextStyle(
+    fontFamily: "Montserrat",
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: black);
+
+const TextStyle style700x14 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: black);
+
+const TextStyle lightstyle700x10 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 10,
+    color: lightprimarycolor);
+
+const TextStyle style700x10 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 10,
+    color: black);
+
+const TextStyle style700x11 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 11,
+    color: black);
+const TextStyle style400x12 = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: white);
 const TextStyle saloontopheaderdatavalue = TextStyle(
   fontFamily: "Tajawal",
   fontWeight: FontWeight.w700,

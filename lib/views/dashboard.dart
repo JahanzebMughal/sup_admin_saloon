@@ -1,10 +1,10 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print, avoid_unnecessary_containers
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saloon_app/views/login/login_screen.dart';
+import 'package:saloon_app/views/saloon_profile/all_saloons.dart';
 
 import '../Constants/ColorsManager.dart';
 import '../Constants/textstyles.dart';
@@ -29,7 +29,7 @@ class Dashboard extends StatelessWidget {
     print("=====> Saloon Admin");
     return Scaffold(
         backgroundColor: const Color(0XFFF9F9F9),
-        appBar: customappbar('dashboard'.tr),
+        appBar: customappbar('dashboard'.tr, false),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -74,7 +74,7 @@ class Dashboard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Saloonheader1box(value: '03', heading: 'appointments'.tr),
+                      Saloonheader1box(value: '03', heading: 'appointments'),
 
                       //Get Employee Length
                       StreamBuilder<QuerySnapshot>(
@@ -366,13 +366,10 @@ class Dashboard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: InkWell(
-                            // onTap: () {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => DisplaySaloon()),
-                            //   );
-                            // },
+                            onTap: () {
+                              Get.to(() => AllSaloons(),
+                                  transition: Transition.fadeIn);
+                            },
                             child: buildExpanded(
                                 'salonprofile'.tr, 'assets/salon profile.png')),
                       ),
@@ -496,7 +493,6 @@ class Dashboard extends StatelessWidget {
                   onTap: () {
                     Get.to(() => LoginBodyScreen());
                     print("done");
-                    
                   },
                   child: Padding(
                     padding:
@@ -834,10 +830,17 @@ class Saloonheader1box extends StatelessWidget {
   }
 }
 
-AppBar customappbar(
-  String title,
-) {
+AppBar customappbar(String title, [bool? isLeading]) {
   return AppBar(
+    leading: isLeading == true
+        ? IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () => Get.back(),
+          )
+        : const SizedBox(),
     title: Text(
       title,
       style: appbarvalue,

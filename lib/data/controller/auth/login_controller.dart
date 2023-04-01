@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saloon_app/views/dashboard.dart';
+import 'package:saloon_app/views/login/login_screen.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -93,5 +94,6 @@ class AuthController extends GetxController {
 
   void signOut() async {
     await _auth.signOut();
+    Get.offAll(() => LoginScreen());
   }
 }
