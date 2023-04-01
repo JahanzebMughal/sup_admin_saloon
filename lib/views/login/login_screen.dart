@@ -76,6 +76,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 authController.loginUser(
                     context, emailController.text, passController.text);
+                // Get.to(() => Dashboard());
                 // if (Form.of(context).validate()) {
                 //   loginUser(context, emailController.text, passController.text);
                 //  }
