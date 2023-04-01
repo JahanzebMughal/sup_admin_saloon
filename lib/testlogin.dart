@@ -1,197 +1,162 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:saloon_app/widgets/mybutton.dart';
 import 'package:saloon_app/widgets/mytextfield.dart';
 
-class LoginBodyScreen extends StatefulWidget {
-  const LoginBodyScreen({super.key});
+import 'data/controller/auth/login_controller.dart';
 
-  @override
-  State<LoginBodyScreen> createState() => _LoginBodyScreenState();
-}
-
-class _LoginBodyScreenState extends State<LoginBodyScreen>
-    with WidgetsBindingObserver {
+class LoginBodyScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  var authController = Get.put(AuthController());
 
-  void showErrorMessage(String message) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(message),
-          );
-        });
-  }
+  LoginBodyScreen({super.key});
 
-  String _errorMessage = "";
-
-  void validateEmail(String val) {
-    if (val.isEmpty) {
-      setState(() {
-        _errorMessage = "Email can not be empty";
-      });
-    }
-    // else if (!EmailValidator.validate(val, true)) {
-    //   setState(() {
-    //     _errorMessage = "Invalid Email Address";
-    //   });
-    // }
-    else {
-      setState(() {
-        _errorMessage = "";
-      });
-    }
-  }
-
-  bool _isKeyboardVisible = false;
-  @override
-  void didChangeMetrics() {
-    final bool isKeyboardVisibleNew =
-        WidgetsBinding.instance.window.viewInsets.bottom != 0;
-    if (_isKeyboardVisible != isKeyboardVisibleNew) {
-      setState(() {
-        _isKeyboardVisible = isKeyboardVisibleNew;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
+  void showErrorMessage(String message, BuildContext context) {}
+  bool passvisible = false;
+  final String _errorMessage = "";
   @override
   Widget build(BuildContext context) {
-    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom + 20;
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double containerHeight =
-        screenHeight - keyboardHeight - kToolbarHeight;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: HexColor("#fed8c3"),
         body: Stack(
           children: [
-            if (_isKeyboardVisible)
-              Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: containerHeight,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: HexColor("#ffffff"),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
+            Transform.translate(
+              offset: const Offset(0, -0),
+              child: Image.asset(
+                'assets/gomaid-logo-1.png',
+                scale: 1.5,
+                width: double.infinity,
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 500,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: HexColor("#ffffff"),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Log In",
+                        style: GoogleFonts.poppins(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor("#4f4f4f"),
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Log In",
-                            style: GoogleFonts.poppins(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: HexColor("#4f4f4f"),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 0, 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Email",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    color: HexColor("#8d8d8d"),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                MyTextField(
-                                  onChanged: (() {
-                                    validateEmail(emailController.text);
-                                  }),
-                                  controller: emailController,
-                                  hintText: "hello@gmail.com",
-                                  obscureText: false,
-                                  prefixIcon: const Icon(Icons.mail_outline),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                  child: Text(
-                                    _errorMessage,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Password",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    color: HexColor("#8d8d8d"),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                MyTextField(
-                                  controller: passwordController,
-                                  hintText: "**************",
-                                  obscureText: true,
-                                  prefixIcon: const Icon(Icons.lock_outline),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                MyButton(
-                                  onPressed: () {},
-                                  buttonText: 'Submit',
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                  )),
-            // Transform.translate(
-            //   offset: const Offset(0, -253),
-            //   child: Image.asset(
-            //     'assets/Images/plants2.png',
-            //     scale: 1.5,
-            //     width: double.infinity,
-            //   ),
-            // ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Email",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                color: HexColor("#8d8d8d"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            MyTextField(
+                              onChanged: (() {}),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'This field is required';
+                                }
+
+                                return null;
+                              },
+                              controller: emailController,
+                              hintText: "hello@gmail.com",
+                              obscureText: false,
+                              prefixIcon: const Icon(Icons.mail_outline),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                              child: Text(
+                                _errorMessage,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Password",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                color: HexColor("#8d8d8d"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            MyTextField(
+                              controller: passwordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                if (value.length < 6) {
+                                  return 'Password must be at least 6 characters long';
+                                }
+                                return null;
+                              },
+                              hintText: "*******",
+                              obscureText: true,
+                              suffixIcon: const Icon(Icons.visibility_off),
+                              prefixIcon: const Icon(Icons.lock_outline),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Obx(
+                              () => MyButton(
+                                onPressed: () {
+                                  authController.loginUser(
+                                      context,
+                                      emailController.text,
+                                      passwordController.text);
+                                },
+                                loading: authController.loading.value,
+                                buttonText: 'Submit',
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

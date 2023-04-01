@@ -9,20 +9,26 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Icon prefixIcon;
+  Icon? suffixIcon;
+  final FormFieldValidator<String> validator;
+
   final Function()? onChanged;
 
-  const MyTextField(
+  MyTextField(
       {super.key,
       required this.controller,
       required this.hintText,
       required this.obscureText,
+      required this.validator,
+      this.suffixIcon,
       required this.prefixIcon,
       this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      validator: validator,
       obscureText: obscureText,
       cursorColor: HexColor("#4f4f4f"),
       decoration: InputDecoration(
@@ -38,6 +44,8 @@ class MyTextField extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
         prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        suffixIconColor: HexColor("#4f4f4f"),
         prefixIconColor: HexColor("#4f4f4f"),
         filled: true,
       ),

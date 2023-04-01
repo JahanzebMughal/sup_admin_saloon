@@ -10,6 +10,8 @@ import '../Constants/ColorsManager.dart';
 import '../Constants/textstyles.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../testlogin.dart';
+
 class Dashboard extends StatelessWidget {
   final _employeecollection = FirebaseFirestore.instance
       .collection('Saloons')
@@ -492,10 +494,9 @@ class Dashboard extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => LoginScreen());
+                    Get.to(() => LoginBodyScreen());
                     print("done");
-                    // context.read<SecretCodeProvider>().setUserRole("other");
-                    // context.read<AuthProvider>().signOut(context);
+                    
                   },
                   child: Padding(
                     padding:
@@ -657,13 +658,13 @@ class Highestbookingprogressbar extends StatelessWidget {
         children: [
           Text('$employeename($noofbooking)'),
           LinearPercentIndicator(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            barRadius: Radius.circular(30),
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            barRadius: const Radius.circular(30),
             width: 255.59,
             animation: false,
             lineHeight: 15.97,
             percent: double.parse(noofbooking) / 10,
-            center: Text(''),
+            center: const Text(''),
             progressColor: primarycolor,
           ),
         ],
