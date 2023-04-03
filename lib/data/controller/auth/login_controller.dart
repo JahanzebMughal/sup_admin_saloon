@@ -5,11 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saloon_app/views/dashboard.dart';
 import 'package:saloon_app/views/login/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   RxBool loading = false.obs;
 
+  bool isLogin = false;
+
+  @override
+  void onInit() {
+    checkLogin();
+    super.onInit();
+  }
   // Future<UserCredential?> signIn(String email, String password) async {
   //   loading.value = true; // set loading flag to true
   //   try {
@@ -32,6 +40,7 @@ class AuthController extends GetxController {
 
   Future<void> loginUser(
       BuildContext context, String email, String password) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     loading.value = true;
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -45,6 +54,7 @@ class AuthController extends GetxController {
       );
       // Navigate to the next screen
       Get.to(Dashboard());
+      pref.setBool("isLogin", true);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -95,5 +105,13 @@ class AuthController extends GetxController {
   void signOut() async {
     await _auth.signOut();
     Get.offAll(() => LoginScreen());
+  }
+
+  Future<void> checkLogin() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    isLogin = preferences.getBool("isLogin") ?? false;
+
+    print("************************$isLogin");
   }
 }

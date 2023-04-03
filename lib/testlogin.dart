@@ -21,12 +21,16 @@ class LoginBodyScreen extends StatelessWidget {
   final String _errorMessage = "";
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height / 100;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: HexColor("#fed8c3"),
         body: Stack(
           children: [
+            SizedBox(
+              height: h * 100,
+              child: Image.asset('assets/loginbg.png', fit: BoxFit.fitHeight),
+            ),
             Transform.translate(
               offset: const Offset(0, -0),
               child: Image.asset(
@@ -38,7 +42,7 @@ class LoginBodyScreen extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 500,
+                height: 64 * h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: HexColor("#ffffff"),
@@ -145,9 +149,6 @@ class LoginBodyScreen extends StatelessWidget {
                                 loading: authController.loading.value,
                                 buttonText: 'Submit',
                               ),
-                            ),
-                            const SizedBox(
-                              height: 12,
                             ),
                           ],
                         ),

@@ -1,16 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saloon_app/data/controller/auth/login_controller.dart';
 import 'package:saloon_app/testlogin.dart';
+import 'package:saloon_app/views/dashboard.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  var loginController = Get.put(AuthController());
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginBodyScreen(),
+      home: loginController.isLogin == true ? Dashboard() : LoginBodyScreen(),
     );
   }
 }
