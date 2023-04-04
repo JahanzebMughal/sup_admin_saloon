@@ -184,6 +184,20 @@ class _SaloonProfileState extends State<SaloonProfile> {
                                       child: Column(
                                         children: [
                                           CustomButton(
+                                            buttondata: 'Appointments'.tr,
+                                            ontap: () {
+                                              // Get.to(() => allAppointment(),
+                                              //     transition:
+                                              //         Transition.rightToLeft,
+                                              //     duration: const Duration(
+                                              //         milliseconds: 600));
+                                            },
+                                            color: const Color(0XFFB64D3F),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          CustomButton(
                                             buttondata: 'update'.tr,
                                             ontap: () async {
                                               try {
@@ -1031,7 +1045,8 @@ class Saloondetailcontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   Saloondetailcontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.initialvalue});
 
@@ -1073,7 +1088,8 @@ class Employeevacationscontainer extends StatelessWidget {
   VoidCallback ontap;
 
   Employeevacationscontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.pickdate,
       required this.ontap});
 
@@ -1115,7 +1131,8 @@ class Editmanagernofield extends StatelessWidget {
   VoidCallback editbutton;
 
   Editmanagernofield(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.editbutton,
       required this.initialvalue});
@@ -1191,7 +1208,8 @@ class SaloonCRnumber extends StatelessWidget {
   Function(String) onChanged;
 
   SaloonCRnumber(
-      {required this.boxtitle,
+      {super.key,
+      required this.boxtitle,
       required this.initialvalue,
       required this.onChanged});
 
@@ -1233,7 +1251,8 @@ class WorkingHourscontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   WorkingHourscontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.initialvalue});
 
@@ -1276,7 +1295,8 @@ class Employeeoffdaydropdoencontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   Employeeoffdaydropdoencontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.dropdownlist,
       required this.selectedValue,
@@ -1358,7 +1378,7 @@ class Employeeoffdaydropdoencontainer extends StatelessWidget {
 class SaloonProfileImage extends StatelessWidget {
   String SaloonImage;
 
-  SaloonProfileImage({required this.SaloonImage});
+  SaloonProfileImage({super.key, required this.SaloonImage});
 
   @override
   Widget build(BuildContext context) {
