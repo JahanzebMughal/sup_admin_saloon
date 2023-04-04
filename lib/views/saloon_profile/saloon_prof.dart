@@ -176,61 +176,75 @@ class _SaloonProfileState extends State<SaloonProfile> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 55,
+                                      width: 33,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 11, right: 50, bottom: 10),
-                                      child: Column(
+                                          top: 11, bottom: 10),
+                                      child: Row(
                                         children: [
-                                          CustomButton(
-                                            buttondata: 'update'.tr,
-                                            ontap: () async {
-                                              try {
-                                                if (imagepath.path != '') {
-                                                  String downloadurl;
-                                                  EasyLoading.show(
-                                                      status: 'Loading....');
-                                                  Navigator.pop(context);
-                                                  String imageurl =
-                                                      await UploadAwsFile()
-                                                          .call(imagepath.path,
-                                                              imagepath);
-                                                  downloadurl = imageurl;
+                                          Column(
+                                            children: [
+                                              CustomButton(
+                                                buttondata: 'update'.tr,
+                                                ontap: () async {
+                                                  try {
+                                                    if (imagepath.path != '') {
+                                                      String downloadurl;
+                                                      EasyLoading.show(
+                                                          status:
+                                                              'Loading....');
+                                                      Navigator.pop(context);
+                                                      String imageurl =
+                                                          await UploadAwsFile()
+                                                              .call(
+                                                                  imagepath
+                                                                      .path,
+                                                                  imagepath);
+                                                      downloadurl = imageurl;
 
-                                                  log('Image Download url is $downloadurl');
-                                                  if (downloadurl.isNotEmpty) {
-                                                    saloonsProfielController
-                                                        .image
-                                                        .text = downloadurl;
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('Saloons')
-                                                        .doc(widget.saloonId)
-                                                        .update({
-                                                      'image': downloadurl
-                                                    }).then((value) {
-                                                      Utils.successtoastMessage(
-                                                          'Image Updated Succesfully');
-                                                      EasyLoading.dismiss();
-                                                    });
-                                                  } else {}
-                                                }
-                                              } catch (e) {
-                                                log(e.toString());
-                                                EasyLoading.dismiss();
-                                              }
-                                            },
-                                            color: lightblue,
+                                                      log('Image Download url is $downloadurl');
+                                                      if (downloadurl
+                                                          .isNotEmpty) {
+                                                        saloonsProfielController
+                                                            .image
+                                                            .text = downloadurl;
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'Saloons')
+                                                            .doc(
+                                                                widget.saloonId)
+                                                            .update({
+                                                          'image': downloadurl
+                                                        }).then((value) {
+                                                          Utils.successtoastMessage(
+                                                              'Image Updated Succesfully');
+                                                          EasyLoading.dismiss();
+                                                        });
+                                                      } else {}
+                                                    }
+                                                  } catch (e) {
+                                                    log(e.toString());
+                                                    EasyLoading.dismiss();
+                                                  }
+                                                },
+                                                color: lightblue,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              CustomButton(
+                                                buttondata: 'remove'.tr,
+                                                ontap: () {},
+                                                color: black,
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          CustomButton(
-                                            buttondata: 'remove'.tr,
-                                            ontap: () {},
-                                            color: black,
-                                          ),
+                                          CustomButton2(
+                                              buttondata: 'Appointment',
+                                              color: const Color(0XFFB64D3F),
+                                              ontap: () {})
                                         ],
                                       ),
                                     ),

@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saloon_app/views/saloon_profile/all_saloons.dart';
+import 'package:saloon_app/views/services/services_main.dart';
+import 'package:saloon_app/views/support/customer_support.dart';
 
 import '../Constants/ColorsManager.dart';
 import '../Constants/textstyles.dart';
@@ -417,6 +419,11 @@ class Dashboard extends StatelessWidget {
                       ),
                       Expanded(
                         child: InkWell(
+                            onTap: () {
+                              Get.to(() => const ServicesMain(),
+                                  transition: Transition.rightToLeft,
+                                  duration: const Duration(milliseconds: 600));
+                            },
                             // onTap: () {
                             //   Navigator.push(
                             //     context,
@@ -475,10 +482,9 @@ class Dashboard extends StatelessWidget {
                       Expanded(
                         child: InkWell(
                             onTap: () {
-                              //   Navigator.push(context,
-                              //       MaterialPageRoute(builder: (context) {
-                              //     return SaloonSupportScreen();
-                              //   }));
+                              Get.to(() => const CustomerSupport(),
+                                  transition: Transition.rightToLeft,
+                                  duration: const Duration(milliseconds: 600));
                             },
                             child: buildExpanded(
                                 'support'.tr, 'assets/support.png')),
