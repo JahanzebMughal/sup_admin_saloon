@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saloon_app/views/Appointments/allApointment.dart';
 import 'package:saloon_app/views/saloon_profile/all_saloons.dart';
 
 import '../Constants/ColorsManager.dart';
@@ -224,21 +225,21 @@ class Dashboard extends StatelessWidget {
                 const SizedBox(
                   height: 29,
                 ),
-                Container(
-                  height: 275,
-                  width: 325.93,
-                  decoration: BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  // child:LineChart(
+                // Container(
+                //   height: 275,
+                //   width: 325.93,
+                //   decoration: BoxDecoration(
+                //     color: white,
+                //     borderRadius: BorderRadius.circular(12),
+                //   ),
+                //   // child:LineChart(
 
-                  // )
-                  // ;
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
+                //   // )
+                //   // ;
+                // ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -336,25 +337,7 @@ class Dashboard extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                Container(
-                  height: 275,
-                  width: 325.93,
-                  decoration: BoxDecoration(
-                      boxShadow: containerboxShadow(),
-                      color: white,
-                      borderRadius: BorderRadius.circular(12)),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  height: 275,
-                  width: 325.93,
-                  decoration: BoxDecoration(
-                      boxShadow: containerboxShadow(),
-                      color: white,
-                      borderRadius: BorderRadius.circular(12)),
-                ),
+
                 const SizedBox(
                   height: 16,
                 ),
@@ -401,14 +384,9 @@ class Dashboard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: InkWell(
-                            // onTap: () {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             ShowAppointmentsToAdmin()),
-                            //   );
-                            // },
+                            onTap: () {
+                              Get.to(() => allAppointment());
+                            },
                             child: buildExpanded(
                                 'appointments'.tr, 'assets/appointment.png')),
                       ),
@@ -431,21 +409,7 @@ class Dashboard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      SizedBox(
-                        width: 15,
-                      ),
-                    ],
-                  ),
-                ),
+
                 const SizedBox(
                   height: 16,
                 ),

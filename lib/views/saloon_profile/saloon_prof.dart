@@ -20,6 +20,8 @@ import 'package:saloon_app/Constants/upload_image_services.dart';
 import 'package:saloon_app/data/controller/aws/aws.dart';
 import 'package:saloon_app/data/controller/saloon_controller/saloon_profile_controller.dart';
 
+import '../Appointments/allApointment.dart';
+
 class SaloonProfile extends StatefulWidget {
   String? saloonId;
   SaloonProfile({super.key, this.saloonId});
@@ -186,11 +188,14 @@ class _SaloonProfileState extends State<SaloonProfile> {
                                           CustomButton(
                                             buttondata: 'Appointments'.tr,
                                             ontap: () {
-                                              // Get.to(() => allAppointment(),
-                                              //     transition:
-                                              //         Transition.rightToLeft,
-                                              //     duration: const Duration(
-                                              //         milliseconds: 600));
+                                              Get.to(
+                                                  () => allAppointment(
+                                                        sid: widget.saloonId,
+                                                      ),
+                                                  transition:
+                                                      Transition.rightToLeft,
+                                                  duration: const Duration(
+                                                      milliseconds: 600));
                                             },
                                             color: const Color(0XFFB64D3F),
                                           ),
