@@ -180,28 +180,23 @@ class _SaloonProfileState extends State<SaloonProfile> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 11, bottom: 10),
-                                      child: Row(
+                                          top: 11, right: 50, bottom: 10),
+                                      child: Column(
                                         children: [
-                                          Column(
-                                            children: [
-                                              CustomButton(
-                                                buttondata: 'update'.tr,
-                                                ontap: () async {
-                                                  try {
-                                                    if (imagepath.path != '') {
-                                                      String downloadurl;
-                                                      EasyLoading.show(
-                                                          status:
-                                                              'Loading....');
-                                                      Navigator.pop(context);
-                                                      String imageurl =
-                                                          await UploadAwsFile()
-                                                              .call(
-                                                                  imagepath
-                                                                      .path,
-                                                                  imagepath);
-                                                      downloadurl = imageurl;
+                                          CustomButton(
+                                            buttondata: 'update'.tr,
+                                            ontap: () async {
+                                              try {
+                                                if (imagepath.path != '') {
+                                                  String downloadurl;
+                                                  EasyLoading.show(
+                                                      status: 'Loading....');
+                                                  Navigator.pop(context);
+                                                  String imageurl =
+                                                      await UploadAwsFile()
+                                                          .call(imagepath.path,
+                                                              imagepath);
+                                                  downloadurl = imageurl;
 
                                                       log('Image Download url is $downloadurl');
                                                       if (downloadurl
@@ -1032,7 +1027,7 @@ class _SaloonProfileState extends State<SaloonProfile> {
                           )
                         ],
                       ),
-                    ));
+                    ))
             }));
   }
 }
@@ -1045,7 +1040,8 @@ class Saloondetailcontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   Saloondetailcontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.initialvalue});
 
@@ -1087,7 +1083,8 @@ class Employeevacationscontainer extends StatelessWidget {
   VoidCallback ontap;
 
   Employeevacationscontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.pickdate,
       required this.ontap});
 
@@ -1129,7 +1126,8 @@ class Editmanagernofield extends StatelessWidget {
   VoidCallback editbutton;
 
   Editmanagernofield(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.editbutton,
       required this.initialvalue});
@@ -1205,7 +1203,8 @@ class SaloonCRnumber extends StatelessWidget {
   Function(String) onChanged;
 
   SaloonCRnumber(
-      {required this.boxtitle,
+      {super.key,
+      required this.boxtitle,
       required this.initialvalue,
       required this.onChanged});
 
@@ -1247,7 +1246,8 @@ class WorkingHourscontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   WorkingHourscontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.initialvalue});
 
@@ -1290,7 +1290,8 @@ class Employeeoffdaydropdoencontainer extends StatelessWidget {
   TextEditingController textcontroller = TextEditingController();
 
   Employeeoffdaydropdoencontainer(
-      {required this.containertitle,
+      {super.key,
+      required this.containertitle,
       required this.onchanged,
       required this.dropdownlist,
       required this.selectedValue,
@@ -1372,7 +1373,7 @@ class Employeeoffdaydropdoencontainer extends StatelessWidget {
 class SaloonProfileImage extends StatelessWidget {
   String SaloonImage;
 
-  SaloonProfileImage({required this.SaloonImage});
+  SaloonProfileImage({super.key, required this.SaloonImage});
 
   @override
   Widget build(BuildContext context) {
