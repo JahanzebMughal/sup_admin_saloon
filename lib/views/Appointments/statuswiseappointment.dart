@@ -14,7 +14,7 @@ class Statuswiseappointment extends StatelessWidget {
     var h = MediaQuery.of(context).size.width / 100;
 
     return Scaffold(
-      appBar: myappbar('Complete appointment'),
+      appBar: myappbar('$status appointment'),
       body: Column(children: [
         Expanded(
           child: Container(

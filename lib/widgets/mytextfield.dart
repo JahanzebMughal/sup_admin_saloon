@@ -9,7 +9,7 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Icon prefixIcon;
-  Icon? suffixIcon;
+  Widget? suffixIcon;
   final FormFieldValidator<String> validator;
 
   final Function()? onChanged;

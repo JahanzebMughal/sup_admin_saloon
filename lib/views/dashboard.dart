@@ -16,12 +16,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../testlogin.dart';
 
 class Dashboard extends StatelessWidget {
-  final _employeecollection = FirebaseFirestore.instance
-      .collection('Saloons')
-      .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
-      .collection('Employee');
-
-  Dashboard({super.key});
+  const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,24 +75,26 @@ class Dashboard extends StatelessWidget {
                       Saloonheader1box(value: '03', heading: 'appointments'),
 
                       //Get Employee Length
-                      StreamBuilder<QuerySnapshot>(
-                        stream: _employeecollection.snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          int documentCount = snapshot.data!.size;
-                          return Saloonheader1box(
-                              value: documentCount.toString(),
-                              heading: 'employees'.tr);
-                        },
-                      ),
+                      // StreamBuilder<QuerySnapshot>(
+                      //   stream: _employeecollection.snapshots(),
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<QuerySnapshot> snapshot) {
+                      //     if (snapshot.hasError) {
+                      //       return Text('Error: ${snapshot.error}');
+                      //     }
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       return const Center(
+                      //           child: CircularProgressIndicator());
+                      //     }
+                      //     int documentCount = snapshot.data!.size;
+                      //     return
+                      Saloonheader1box(
+                          value: '0',
+                          // documentCount.toString(),
+                          heading: 'employees'.tr),
+                      //   },
+                      // ),
 
                       Saloonheader1box(value: '07', heading: 'reviews'.tr),
                     ],

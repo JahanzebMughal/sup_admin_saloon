@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   RxBool loading = false.obs;
+  RxBool passvisible = false.obs;
 
   bool isLogin = false;
 
@@ -18,6 +19,7 @@ class AuthController extends GetxController {
     checkLogin();
     super.onInit();
   }
+
   // Future<UserCredential?> signIn(String email, String password) async {
   //   loading.value = true; // set loading flag to true
   //   try {
@@ -53,7 +55,7 @@ class AuthController extends GetxController {
         ),
       );
       // Navigate to the next screen
-      Get.to(Dashboard());
+      Get.to(const Dashboard());
       pref.setBool("isLogin", true);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
