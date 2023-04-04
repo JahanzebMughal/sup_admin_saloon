@@ -178,7 +178,7 @@ class _SaloonProfileState extends State<SaloonProfile> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 55,
+                                      width: 33,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(

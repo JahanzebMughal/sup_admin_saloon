@@ -33,3 +33,36 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+class CustomButton2 extends StatelessWidget {
+  String buttondata;
+  VoidCallback ontap;
+  Color color;
+
+  CustomButton2(
+      {required this.buttondata, required this.color, required this.ontap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              height: 45,
+              width: 80,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5), color: color),
+              child: Text(
+                buttondata,
+                style: style400x12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
