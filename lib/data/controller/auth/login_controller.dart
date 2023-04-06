@@ -54,7 +54,7 @@ class AuthController extends GetxController {
         ),
       );
       // Navigate to the next screen
-      Get.to(const Dashboard());
+      Get.to(Dashboard());
       pref.setBool("isLogin", true);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

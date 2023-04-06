@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saloon_app/data/controller/dashboard/dashboard_controller.dart';
 import 'package:saloon_app/views/Appointments/allApointment.dart';
+import 'package:saloon_app/views/payments/all_payments.dart';
 import 'package:saloon_app/views/saloon_profile/all_saloons.dart';
 import 'package:saloon_app/views/services/services_main.dart';
 import 'package:saloon_app/views/support/customer_support.dart';
@@ -15,7 +17,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../testlogin.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+  var dashboardController = Get.put(DashboardController());
+  Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +115,10 @@ class Dashboard extends StatelessWidget {
                       // ),
 
                       Saloonheader1box(value: '07', heading: 'reviews'.tr),
+
+                      Saloonheader1box(
+                          value: dashboardController.totalAmount.toString(),
+                          heading: 'total earning'.tr),
                     ],
                   ),
                 ),
@@ -368,10 +375,7 @@ class Dashboard extends StatelessWidget {
                       Expanded(
                         child: InkWell(
                             onTap: () {
-                              // Navigator.push(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return ALLPayments();
-                              // }));
+                              Get.to(() => const AllPayMents());
                             },
                             child: buildExpanded(
                                 'payments'.tr, 'assets/payemnts.png')),
@@ -766,7 +770,7 @@ class Saloongradeintboxwidget extends StatelessWidget {
 }
 
 class Saloonheader1box extends StatelessWidget {
-  String value;
+  dynamic value;
   String heading;
 
   Saloonheader1box({super.key, required this.value, required this.heading});

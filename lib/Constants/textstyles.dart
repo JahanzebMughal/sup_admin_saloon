@@ -20,6 +20,18 @@ const TextStyle logoutstyle18 = TextStyle(
     fontSize: 18,
     color: black);
 
+const TextStyle ss = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w700,
+    fontSize: 15,
+    color: black);
+
+const TextStyle bb = TextStyle(
+    fontFamily: "Tajawal",
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+    color: black);
+
 const TextStyle saloonbuildcontainer = TextStyle(
     fontFamily: "Tajawal",
     fontWeight: FontWeight.w500,
