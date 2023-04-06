@@ -128,7 +128,7 @@ class allAppointment extends StatelessWidget {
                               return Saloongradeintboxwidget(
                                 color1: const Color(0XFFB64D3F),
                                 color2: const Color(0XFFD96D5E),
-                                boxheading: 'Cancelled',
+                                boxheading: 'Cancelled\nAppoinments',
                                 boxvalue: "$count",
                                 valuecolor: redtextgraient,
                               );

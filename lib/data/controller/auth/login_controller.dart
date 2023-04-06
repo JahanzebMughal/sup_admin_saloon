@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saloon_app/views/dashboard.dart';
-import 'package:saloon_app/views/login/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
@@ -104,10 +103,10 @@ class AuthController extends GetxController {
     }
   }
 
-  void signOut() async {
-    await _auth.signOut();
-    Get.offAll(() => LoginScreen());
-  }
+  // void signOut() async {
+  //   await _auth.signOut();
+  //   Get.offAll(() => LoginScreen());
+  // }
 
   Future<void> checkLogin() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

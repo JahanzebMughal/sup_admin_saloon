@@ -31,7 +31,7 @@ class LoginBodyScreen extends StatelessWidget {
               child: Image.asset('assets/loginbg.png', fit: BoxFit.fitHeight),
             ),
             Transform.translate(
-              offset: Offset(20 * w, 30),
+              offset: Offset(20 * w, 8 * h),
               child: Image.asset(
                 'assets/Logo.png',
                 scale: 1.5,
@@ -63,12 +63,12 @@ class LoginBodyScreen extends StatelessWidget {
                           color: HexColor("#4f4f4f"),
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            emailController.text = 'zebi.biit@gmail.com';
-                            passwordController.text = 'test1234';
-                          },
-                          child: const Text('AutoFill')),
+                      // ElevatedButton(
+                      //     onPressed: () {
+                      //       emailController.text = 'zebi.biit@gmail.com';
+                      //       passwordController.text = 'test1234';
+                      //     },
+                      //     child: const Text('AutoFill')),
                       const SizedBox(
                         height: 20,
                       ),

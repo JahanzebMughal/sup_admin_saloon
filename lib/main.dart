@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saloon_app/testlogin.dart';
 import 'package:saloon_app/views/dashboard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:sizer/sizer.dart';
 import 'data/controller/auth/login_controller.dart';
 
 Future<void> main() async {
@@ -22,13 +21,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: loginController.isLogin ? const Dashboard() : LoginBodyScreen(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: loginController.isLogin ? const Dashboard() : LoginBodyScreen(),
+      );
+    });
   }
 }

@@ -5,11 +5,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:saloon_app/Constants/ColorsManager.dart';
 import 'package:saloon_app/views/dashboard.dart';
 import 'package:saloon_app/widgets/custom_button.dart';
 import 'package:saloon_app/widgets/custom_textfield.dart';
+import 'package:sizer/sizer.dart';
 
+import '../../Constants/ColorsManager.dart';
 import '../../data/controller/services/add_service_controller.dart';
 
 class Services extends StatefulWidget {
@@ -20,7 +21,8 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
-  bool isClicked = false;
+  bool _menSelected = false;
+  bool _womenSelected = false;
 
   var serviceCOntroller = TextEditingController();
   var addServiceController = Get.put(AddServiceController());
@@ -63,98 +65,116 @@ class _ServicesState extends State<Services> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isClicked = !isClicked;
-                  value = "Men";
-                });
-              },
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: containerboxShadow()),
-                child: const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 10),
-                  child: Text("Men"),
-                ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _menSelected = true;
+                        _womenSelected = false;
+
+                        value = "Men";
+                      });
+                    },
+                    child: Container(
+                      height: 15.h,
+                      width: 35.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: _menSelected ? 2 : 0),
+                          borderRadius: BorderRadius.circular(20),
+                          color:
+                              _menSelected ? Colors.grey : Colors.grey.shade400,
+                          boxShadow: containerboxShadow()),
+                      child: const Center(
+                          child: Text(
+                        'Men',
+                        style: TextStyle(fontSize: 18),
+                      )),
+                    )),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _womenSelected = true;
+                        _menSelected = false;
+                        value = "Women";
+                      });
+                    },
+                    child: Container(
+                      height: 15.h,
+                      width: 35.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: _womenSelected ? 2 : 0),
+                          borderRadius: BorderRadius.circular(20),
+                          color: _womenSelected
+                              ? Colors.grey
+                              : Colors.grey.shade400,
+                          boxShadow: containerboxShadow()),
+                      child: const Center(
+                          child: Text(
+                        'Women',
+                        style: TextStyle(fontSize: 18),
+                      )),
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: 30.sp,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomOutlineTextField(
+                validator: (String) {
+                  return null;
+                },
+                obscureText: false,
+                labelText: 'Service Name',
+                controller: serviceCOntroller,
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isClicked = !isClicked;
-                  value = "Women";
-                });
-              },
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: containerboxShadow()),
-                child: const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 10),
-                  child: Text("Women"),
-                ),
-              ),
-            ),
-            isClicked
-                ? Container(
-                    margin: const EdgeInsets.all(10),
-                    width: double.infinity,
-                    //  color: Colors.red,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _showBottomSheet(context);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 1)),
-                            child: _image == null
-                                ? const Center(child: Text("Add Image"))
-                                : Image.file(
-                                    _image!,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: CustomOutlineTextField(
-                            validator: (String) {
-                              return null;
-                            },
-                            obscureText: false,
-                            labelText: 'Service Name',
-                            controller: serviceCOntroller,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Obx(() => CustomElevatedButton(
-                              buttonText: "Add",
-                              onPressed: () {
-                                addServiceController.addService(
-                                    _image!, serviceCOntroller.text, value);
-                              },
-                              loading: addServiceController.loading.value,
-                            ))
-                      ],
+            Container(
+              margin: const EdgeInsets.all(10),
+              width: double.infinity,
+              //  color: Colors.red,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _showBottomSheet(context);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      height: 170.sp,
+                      width: 170.sp,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.grey, width: 1)),
+                      child: _image == null
+                          ? const Center(child: Text("Tap to select Image"))
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(14),
+                              child: Image.file(
+                                _image!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                     ),
-                  )
-                : const SizedBox()
+                  ),
+                  SizedBox(
+                    height: 30.sp,
+                  ),
+                  Obx(() => CustomElevatedButton(
+                        buttonText: "Add",
+                        onPressed: () {
+                          addServiceController.addService(
+                              _image!, serviceCOntroller.text, value);
+                        },
+                        loading: addServiceController.loading.value,
+                      ))
+                ],
+              ),
+            )
+            // : const SizedBox()
           ],
         ),
       ),

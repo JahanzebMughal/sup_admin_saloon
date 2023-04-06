@@ -8,7 +8,6 @@ import 'package:saloon_app/views/Appointments/allApointment.dart';
 import 'package:saloon_app/views/saloon_profile/all_saloons.dart';
 import 'package:saloon_app/views/services/services_main.dart';
 import 'package:saloon_app/views/support/customer_support.dart';
-
 import '../Constants/ColorsManager.dart';
 import '../Constants/textstyles.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -45,7 +44,7 @@ class Dashboard extends StatelessWidget {
                       int count = snapshot.data!.size;
                       return Container(
                           child: Text(
-                        'salon_name'.tr,
+                        'Super Admin'.tr,
                         // '{salon_name}'.tr,
 
                         style: dashboardheadingrvalue,
@@ -63,6 +62,7 @@ class Dashboard extends StatelessWidget {
                 const SizedBox(
                   height: 37,
                 ),
+
                 Container(
                   height: 60,
                   width: 343,
@@ -72,7 +72,22 @@ class Dashboard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Saloonheader1box(value: '03', heading: 'appointments'),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('Appoinments')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              int count = snapshot.data!.docs.length;
+                              return Saloonheader1box(
+                                  value: count.toString(),
+                                  heading: 'appointments');
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          }),
 
                       //Get Employee Length
                       // StreamBuilder<QuerySnapshot>(
@@ -122,9 +137,6 @@ class Dashboard extends StatelessWidget {
                               child: StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('Appoinments')
-                                .where('saloonId',
-                                    isEqualTo: FirebaseAuth
-                                        .instance.currentUser!.phoneNumber)
                                 .where('appoinmentStatus',
                                     isEqualTo: 'Complete')
                                 .snapshots(),
@@ -158,9 +170,6 @@ class Dashboard extends StatelessWidget {
                               child: StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('Appoinments')
-                                .where('saloonId',
-                                    isEqualTo: FirebaseAuth
-                                        .instance.currentUser!.phoneNumber)
                                 .where('appoinmentStatus',
                                     isEqualTo: 'Upcoming')
                                 .snapshots(),
@@ -194,10 +203,8 @@ class Dashboard extends StatelessWidget {
                               child: StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('Appoinments')
-                                .where('saloonId',
-                                    isEqualTo: FirebaseAuth
-                                        .instance.currentUser!.phoneNumber)
-                                .where('appoinmentStatus', isEqualTo: 'Cancel')
+                                .where('appoinmentStatus',
+                                    isEqualTo: 'Cancelled')
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
@@ -205,7 +212,7 @@ class Dashboard extends StatelessWidget {
                                 return Saloongradeintboxwidget(
                                   color1: const Color(0XFFB64D3F),
                                   color2: const Color(0XFFD96D5E),
-                                  boxheading: 'Cancelled',
+                                  boxheading: 'Cancelled\nAppoinments',
                                   boxvalue: '$count',
                                   valuecolor: redtextgraient,
                                 );

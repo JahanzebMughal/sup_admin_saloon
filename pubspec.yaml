@@ -29,6 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  material_design_icons_flutter: ^6.0.7096
   cloud_firestore: ^4.4.5
   cupertino_icons: ^1.0.2
   dropdown_button2: ^1.9.2
@@ -50,7 +51,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   percent_indicator: ^4.0.1
   shared_preferences: ^2.0.20
-
+  sizer: ^2.0.15
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
