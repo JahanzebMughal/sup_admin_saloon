@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -997,6 +997,29 @@ class _SaloonProfileState extends State<SaloonProfile> {
 
                                 const SizedBox(
                                   height: 66,
+                                ),
+                                Center(
+                                  child: RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating: double.parse(
+                                        snapshot.data!['saloonRating']),
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemSize: 30,
+                                    itemCount: 5,
+                                    itemPadding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
+                                    itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
                                 ),
                                 Align(
                                   alignment: Alignment.center,

@@ -16,10 +16,28 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../testlogin.dart';
 
-class Dashboard extends StatelessWidget {
-  var dashboardController = Get.put(DashboardController());
-  Dashboard({super.key});
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
 
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  var dashboardController = Get.put(DashboardController());
+
+  int totalIds = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTotalEmployeeIds();
+    getTotalUsers();
+    getTotalSaloons();
+  }
+
+  int totalUsers = 0;
+  int totalSaloons = 0;
   @override
   Widget build(BuildContext context) {
     // Get.find<GetStorageController>()
@@ -67,58 +85,82 @@ class Dashboard extends StatelessWidget {
                 ),
 
                 Container(
-                  height: 60,
+                  height: 130,
                   width: 343,
                   decoration: BoxDecoration(
                       boxShadow: containerboxShadow(), color: white),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
                     children: [
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection('Appoinments')
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              int count = snapshot.data!.docs.length;
-                              return Saloonheader1box(
-                                  value: count.toString(),
-                                  heading: 'appointments');
-                            } else if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
-                            } else {
-                              return const CircularProgressIndicator();
-                            }
-                          }),
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            StreamBuilder<QuerySnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('Appoinments')
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    int count = snapshot.data!.docs.length;
+                                    return Saloonheader1box(
+                                        value: count.toString(),
+                                        heading: 'appointments');
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                }),
 
-                      //Get Employee Length
-                      // StreamBuilder<QuerySnapshot>(
-                      //   stream: _employeecollection.snapshots(),
-                      //   builder: (BuildContext context,
-                      //       AsyncSnapshot<QuerySnapshot> snapshot) {
-                      //     if (snapshot.hasError) {
-                      //       return Text('Error: ${snapshot.error}');
-                      //     }
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return const Center(
-                      //           child: CircularProgressIndicator());
-                      //     }
-                      //     int documentCount = snapshot.data!.size;
-                      //     return
-                      Saloonheader1box(
-                          value: '0',
-                          // documentCount.toString(),
-                          heading: 'employees'.tr),
-                      //   },
-                      // ),
+                            //Get Employee Length
+                            // StreamBuilder<QuerySnapshot>(
+                            //   stream: _employeecollection.snapshots(),
+                            //   builder: (BuildContext context,
+                            //       AsyncSnapshot<QuerySnapshot> snapshot) {
+                            //     if (snapshot.hasError) {
+                            //       return Text('Error: ${snapshot.error}');
+                            //     }
+                            //     if (snapshot.connectionState ==
+                            //         ConnectionState.waiting) {
+                            //       return const Center(
+                            //           child: CircularProgressIndicator());
+                            //     }
+                            //     int documentCount = snapshot.data!.size;
+                            //     return
+                            Saloonheader1box(
+                                value: totalIds.toString(),
+                                // documentCount.toString(),
+                                heading: 'employees'.tr),
+                            //   },
+                            // ),
 
-                      Saloonheader1box(value: '07', heading: 'reviews'.tr),
+                            Saloonheader1box(
+                                value:
+                                    dashboardController.totalAmount.toString(),
+                                heading: 'total earning'.tr),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Saloonheader1box(
+                                value: totalUsers.toString(), heading: 'Users'),
 
-                      Saloonheader1box(
-                          value: dashboardController.totalAmount.toString(),
-                          heading: 'total earning'.tr),
+                            Saloonheader1box(
+                                value: totalSaloons.toString(),
+                                heading: 'Saloons'.tr),
+                            //   },
+                            // ),
+
+                            Saloonheader1box(
+                                value: '07', heading: 'Commissions'.tr),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -540,6 +582,47 @@ class Dashboard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getTotalEmployeeIds() async {
+    // Get the reference to the "Saloons" collection
+    CollectionReference saloons =
+        FirebaseFirestore.instance.collection('Saloons');
+
+    // Get all the documents in the "Saloons" collection
+    QuerySnapshot saloonsSnapshot = await saloons.get();
+
+    // Iterate over the documents in the "Saloons" collection
+    for (QueryDocumentSnapshot saloonDoc in saloonsSnapshot.docs) {
+      // Get the employee IDs from the current document
+      List<dynamic> employeeIds = [];
+      employeeIds.add(saloonDoc.get('employeeId'));
+      // Increment the total number of IDs by the number of IDs in the current document
+      setState(() {
+        totalIds += int.parse(employeeIds.length.toString());
+      });
+    }
+
+    // Display the total number of employee IDs
+    print('Total employee IDs: $totalIds');
+  }
+
+  //Total User
+  void getTotalUsers() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').get();
+    setState(() {
+      totalUsers = snapshot.size;
+    });
+  }
+
+//Total Saloons
+  void getTotalSaloons() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('Saloons').get();
+    setState(() {
+      totalSaloons = snapshot.size;
+    });
   }
 }
 

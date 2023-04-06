@@ -35,8 +35,10 @@ class AllPayMents extends StatelessWidget {
                     margin:
                         const EdgeInsets.only(top: 15, right: 15, bottom: 10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey.shade300,
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            bottomRight: Radius.circular(15)),
                         boxShadow: containerboxShadow()),
                     child: Padding(
                       padding:
@@ -121,7 +123,7 @@ class AllPayMents extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

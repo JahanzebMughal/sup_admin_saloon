@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:saloon_app/data/models/all_saloons_model.dart';
+import 'package:saloon_app/views/saloon_profile/saloon_prof.dart';
+import 'package:saloon_app/widgets/custom_container.dart';
 
 import '../dashboard.dart';
 
@@ -41,10 +44,21 @@ class AllSaloons extends StatelessWidget {
           return ListView.builder(
             itemCount: saloons.length,
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(saloons[index].id),
-                subtitle:
-                    Text("${saloons[index].fname} ${saloons[index].lname}"),
+              return GestureDetector(
+                onTap: () {
+                  Get.to(() => SaloonProfile(saloonId: saloons[index].id),
+                      transition: Transition.rightToLeft,
+                      duration: const Duration(milliseconds: 600));
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
+                  child: CustomContainer2(
+                    child1: Text(saloons[index].id),
+                    child2:
+                        Text("${saloons[index].fname} ${saloons[index].lname}"),
+                  ),
+                ),
               );
             },
           );
